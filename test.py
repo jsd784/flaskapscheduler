@@ -1,23 +1,18 @@
-from tzlocal import get_localzone
-from apscheduler.schedulers.background import BackgroundScheduler
-from datetime import datetime
-tz = get_localzone()
-# print(tz)
+from datetime import date
 
-# initialize scheduler with your preferred timezone
-scheduler = BackgroundScheduler({'apscheduler.timezone': tz})
-scheduler.add_jobstore('sqlalchemy', url='sqlite:///data/schedule.db')
-scheduler.start()
+# today = date.today()
+# curr_year = int(today.strftime("%Y"))
+# curr_month = int(today.strftime("%m"))
 
-def printing_something(text):
-    print("printing %s at %s" % (text, datetime.now()))
-    f = open("demofile2.txt", "a")
-    f.write("Now the file has more content!")
-    f.close()
+curr_month = 5
+curr_year = 2021
 
-time = "2020-12-17T15:24"
-date_time = datetime.strptime(str(time), '%Y-%m-%dT%H:%M')
-text = "test"
-#schedule the method 'printing_something' to run the the given 'date_time' with the args 'text'
-job = scheduler.add_job(printing_something, trigger='date', next_run_time=str(date_time), args=[text])
-
+for year in range(curr_year,curr_year+2):
+    if year == curr_year:
+        for month in range(curr_month,13):
+            exec_date = date(year, month, 1)
+            print(exec_date)
+    else:
+        for month in range(1,13):
+            exec_date = date(year, month, 1)
+            print(exec_date)
